@@ -1,0 +1,88 @@
+﻿@model FreshFlow.Models.ViewModels.LoginViewModel
+@{
+    Layout = null;
+    bool isEmployee = ViewBag.Mode == "employee";
+}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logowanie - FreshFlow</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-white">
+    <div class="container-fluid vh-100">
+        <div class="row h-100">
+            <div class="col-lg-6 d-none d-lg-flex flex-column justify-content-between p-5 text-white position-relative"
+                 style="background: linear-gradient(rgba(16,24,40,0.55), rgba(16,24,40,0.75)), url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=1200') center/cover no-repeat;">
+                <div>
+                    <a asp-controller="Home" asp-action="Index" class="text-white text-decoration-none fw-semibold">← Strona główna</a>
+                </div>
+                <div class="text-center my-auto">
+                    <div class="d-inline-flex align-items-center gap-3 mb-2">
+                        <span class="p-3 rounded-3 fw-bold fs-4" style="background-color:#00796B;">🍃</span>
+                        <div class="text-start">
+                            <h2 class="fw-bold mb-0">FreshFlow</h2>
+                            <small class="text-uppercase tracking-wider">Hurtownia świeżych produktów</small>
+                        </div>
+                    </div>
+                    <div class="mt-3 text-uppercase small" style="letter-spacing: 3px;">
+                        @(isEmployee ? "SYSTEM ERP - PRACOWNIK" : "PORTAL KLIENTA")
+                    </div>
+                </div>
+                <div class="border-start border-3 ps-3" style="border-color:#00796B !important;">
+                    <p class="mb-1 fst-italic">„Świeże produkty, pewna dostawa i zamówienia zawsze pod kontrolą.”</p>
+                    <small class="text-white-50">FreshFlow dla Twojego biznesu</small>
+                </div>
+            </div>
+
+            <div class="col-lg-6 d-flex align-items-center justify-content-center p-4">
+                <div style="max-width: 420px; width: 100%;">
+                    <div class="mb-4">
+                        <span class="d-inline-block p-3 rounded-3 mb-3" style="background-color:#e6f4f1; color:#00796B;">🍃</span>
+                        <h2 class="fw-bold text-dark">Witaj ponownie!</h2>
+                        <p class="text-muted">
+                            @(isEmployee ? "Zaloguj się do wewnętrznego systemu ERP." : "Zaloguj się, aby złożyć nowe zamówienie.")
+                        </p>
+                    </div>
+
+                    <form asp-action="Login" method="post">
+                        <input type="hidden" name="mode" value="@ViewBag.Mode" />
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small"></div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Adres E-mail</label>
+                            <input asp-for="Email" class="form-control form-control-lg" placeholder="firma@przyklad.pl" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Hasło</label>
+                            <input asp-for="Password" class="form-control form-control-lg" placeholder="Wprowadź swoje hasło" />
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div class="form-check">
+                                <input asp-for="RememberMe" class="form-check-input" />
+                                <label asp-for="RememberMe" class="form-check-label small text-muted">Zapamiętaj mnie</label>
+                            </div>
+                            <a href="#" class="small text-decoration-none fw-semibold" style="color:#00796B;">Zapomniałeś hasła?</a>
+                        </div>
+
+                        <button type="submit" class="btn btn-lg w-100 text-white fw-semibold" style="background-color:#00796B;">
+                            Zaloguj się →
+                        </button>
+                    </form>
+
+                    <hr class="my-4" />
+                    <p class="text-center small text-muted">
+                        Nie masz jeszcze konta? <a asp-action="Register" class="fw-semibold text-decoration-none" style="color:#00796B;">Zarejestruj się</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
