@@ -1,8 +1,58 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Hurtownia Warzyw i Owoców";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="position-relative text-white d-flex align-items-center"
+         style="min-height: 580px; background: linear-gradient(rgba(16,24,40,0.6), rgba(16,24,40,0.65)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?w=1600') center/cover no-repeat;">
+    <div class="container py-5">
+        <div class="col-lg-7">
+            <span class="text-uppercase small fw-bold" style="letter-spacing:2px; color:#4db6ac;">— Codziennie świeże dostawy</span>
+            <h1 class="display-4 fw-bold mt-2 mb-3">Świeżość prosto od lokalnych dostawców</h1>
+            <p class="lead text-white-50 mb-4">
+                Najlepsza hurtownia warzyw i owoców. Zaopatrujemy sklepy, restauracje i biznes w produkty najwyższej jakości.
+            </p>
+            <div class="d-flex gap-3">
+                <a asp-controller="Account" asp-action="Register" class="btn btn-lg text-white fw-semibold px-4" style="background-color:#00796B;">
+                    Załóż konto klienta →
+                </a>
+                <a asp-controller="Products" asp-action="Catalog" class="btn btn-lg btn-outline-light fw-semibold px-4">
+                    Sprawdź ofertę
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="o-nas" class="py-5 bg-white">
+    <div class="container py-4">
+        <div class="text-center mb-5">
+            <small class="text-uppercase fw-bold" style="color:#00796B; letter-spacing:1.5px;">Nasze wartości</small>
+            <h2 class="fw-bold mt-1">Dlaczego my?</h2>
+            <p class="text-muted">Od pola do Twojego biznesu — dbamy o jakość na każdym etapie dostawy.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border rounded-4 p-4 shadow-sm">
+                    <div class="p-3 rounded-3 d-inline-block mb-3" style="background-color:#e6f4f1; color:#00796B; width:fit-content;">🚚</div>
+                    <h5 class="fw-bold">Szybka dostawa w 24h</h5>
+                    <p class="text-muted small">Nowoczesna flota chłodnicza dostarcza zamówienia na czas, sześć dni w tygodniu.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border rounded-4 p-4 shadow-sm">
+                    <div class="p-3 rounded-3 d-inline-block mb-3" style="background-color:#e6f4f1; color:#00796B; width:fit-content;">🍏</div>
+                    <h5 class="fw-bold">Gwarancja świeżości</h5>
+                    <p class="text-muted small">Każda partia przechodzi kontrolę jakości, zanim trafi do Twojego magazynu.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border rounded-4 p-4 shadow-sm">
+                    <div class="p-3 rounded-3 d-inline-block mb-3" style="background-color:#e6f4f1; color:#00796B; width:fit-content;">🤝</div>
+                    <h5 class="fw-bold">Lokalni rolnicy</h5>
+                    <p class="text-muted small">Budujemy trwałe relacje z zaufanymi gospodarstwami z całej Polski.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
