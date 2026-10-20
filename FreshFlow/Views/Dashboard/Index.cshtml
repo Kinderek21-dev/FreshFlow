@@ -1,0 +1,34 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Pulpit Główny";
+}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold mb-0">Pulpit Główny</h3>
+        <p class="text-muted mb-0">Przegląd najważniejszych danych Twojej hurtowni.</p>
+    </div>
+    <a asp-controller="Products" asp-action="Create" class="btn text-white fw-semibold" style="background-color:#00796B;">
+        + Dodaj nowy produkt
+    </a>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm p-4 rounded-4">
+            <small class="text-uppercase fw-bold" style="color:#00796B;">Statystyki ogólne</small>
+            <h5 class="fw-bold mt-1">Aktywne produkty w katalogu: @ViewBag.ProductCount</h5>
+            <p class="text-muted small">Zarządzaj asortymentem warzyw i owoców z poziomu zakładki Katalog Produktów.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm p-4 rounded-4">
+            <small class="text-uppercase fw-bold" style="color:#00796B;">Sprint #1</small>
+            <h5 class="fw-bold mt-1">Zrealizowane moduły</h5>
+            <ul class="list-unstyled small mt-3 mb-0">
+                <li class="mb-2">✅ Autoryzacja i Role użytkowników</li>
+                <li class="mb-2">✅ Katalog produktów (CRUD)</li>
+                <li class="mb-2">✅ Walidacja formularzy</li>
+            </ul>
+        </div>
+    </div>
+</div>
