@@ -54,4 +54,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+await FreshFlow.Data.DbSeeder.SeedAsync(app.Services);
+
 app.Run();
