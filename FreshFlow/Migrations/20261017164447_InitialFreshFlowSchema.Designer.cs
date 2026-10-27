@@ -81,6 +81,7 @@ namespace FreshFlow.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
+
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
