@@ -1,0 +1,53 @@
+﻿@model FreshFlow.Models.ViewModels.UserCreateViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Nowy Użytkownik";
+}
+
+<div class="col-lg-8 mx-auto bg-white p-4 rounded-4 shadow-sm border">
+    <h4 class="fw-bold mb-3">Utwórz nowe konto użytkownika</h4>
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="FirstName" class="form-label small fw-semibold"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="LastName" class="form-label small fw-semibold"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Email" class="form-label small fw-semibold"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Role" class="form-label small fw-semibold"></label>
+                <select asp-for="Role" asp-items="ViewBag.Roles" class="form-select"></select>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="CompanyName" class="form-label small fw-semibold"></label>
+                <input asp-for="CompanyName" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="NIP" class="form-label small fw-semibold"></label>
+                <input asp-for="NIP" class="form-control" />
+            </div>
+            <div class="col-md-12">
+                <label asp-for="Password" class="form-label small fw-semibold"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger small"></span>
+            </div>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn text-white px-4 fw-semibold" style="background-color:#00796B;">Utwórz konto</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Anuluj</a>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

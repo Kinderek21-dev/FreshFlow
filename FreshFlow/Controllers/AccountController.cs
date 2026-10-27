@@ -46,7 +46,7 @@ namespace FreshFlow.Controllers
                 {
                     return RedirectToAction("Index", "Dashboard");
                 }
-                return RedirectToAction("Catalog", "Products");
+                return RedirectToAction("Index", "ClientPanel");
             }
 
             ModelState.AddModelError(string.Empty, "Nieprawidłowy adres e-mail lub hasło.");

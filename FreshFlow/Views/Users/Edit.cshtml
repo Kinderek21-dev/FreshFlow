@@ -1,0 +1,60 @@
+﻿@model FreshFlow.Models.ViewModels.UserEditViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Edycja Użytkownika";
+}
+
+<div class="col-lg-8 mx-auto bg-white p-4 rounded-4 shadow-sm border">
+    <h4 class="fw-bold mb-3">Edycja konta, roli i reset hasła</h4>
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="FirstName" class="form-label small fw-semibold"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="LastName" class="form-label small fw-semibold"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Email" class="form-label small fw-semibold"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Role" class="form-label small fw-semibold"></label>
+                <select asp-for="Role" asp-items="ViewBag.Roles" class="form-select"></select>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="CompanyName" class="form-label small fw-semibold"></label>
+                <input asp-for="CompanyName" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="NIP" class="form-label small fw-semibold"></label>
+                <input asp-for="NIP" class="form-control" />
+            </div>
+            <div class="col-md-12">
+                <label asp-for="NewPassword" class="form-label small fw-semibold text-primary"></label>
+                <input asp-for="NewPassword" class="form-control" placeholder="Wpisz nowe hasło tylko jeśli chcesz je zresetować..." />
+                <span asp-validation-for="NewPassword" class="text-danger small"></span>
+            </div>
+            <div class="col-md-12">
+                <div class="form-check mt-2">
+                    <input asp-for="IsBlocked" class="form-check-input" />
+                    <label asp-for="IsBlocked" class="form-check-label fw-semibold text-danger"></label>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn text-white px-4 fw-semibold" style="background-color:#00796B;">Zapisz zmiany</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Wróć do listy</a>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
