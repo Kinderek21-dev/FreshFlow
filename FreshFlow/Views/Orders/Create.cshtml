@@ -1,0 +1,67 @@
+﻿@model FreshFlow.Models.Order
+@{
+    ViewData["Title"] = "Złóż zamówienie hurtowe";
+    var product = ViewBag.Product as FreshFlow.Models.Product;
+}
+
+<div class="container py-5">
+    <div class="col-lg-8 mx-auto bg-white p-4 p-md-5 rounded-4 shadow-sm border">
+        <span class="badge mb-2" style="background-color:#e6f4f1; color:#00796B;">ZAMÓWIENIE B2B</span>
+        <h3 class="fw-bold mb-1">Zamówienie na dostawę: @product?.Name</h3>
+        <p class="text-muted small mb-4">
+            Kod SKU: <strong>@product?.BarcodeSKU</strong> ·
+            Cena netto: <strong>@product?.BasePricePerKg.ToString("0.00") zł/kg</strong> ·
+            Dostępny zasób: <strong>@product?.StockQuantity kg</strong> ·
+            Data przydatności partii: <strong class="text-danger">@product?.ExpirationDate.ToString("dd.MM.yyyy")</strong>
+        </p>
+
+        <form asp-action="Create" method="post">
+            <input type="hidden" asp-for="ProductId" />
+            <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="QuantityKg" class="form-label fw-semibold small"></label>
+                    <input asp-for="QuantityKg" type="number" class="form-control" min="@product?.MinimumOrderQuantity" max="@product?.StockQuantity" />
+                    <small class="text-muted">Min. zamówienie: @product?.MinimumOrderQuantity kg</small>
+                    <span asp-validation-for="QuantityKg" class="text-danger small d-block"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="PreferredDeliveryDate" class="form-label fw-semibold small"></label>
+                    <input asp-for="PreferredDeliveryDate" type="date" class="form-control"
+                           min="@DateTime.Today.ToString("yyyy-MM-dd")"
+                           max="@product?.ExpirationDate.ToString("yyyy-MM-dd")" />
+                    <small class="text-muted">Maksymalnie do daty przydatności (@product?.ExpirationDate.ToString("dd.MM.yyyy"))</small>
+                    <span asp-validation-for="PreferredDeliveryDate" class="text-danger small d-block"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="PreferredDeliveryTimeWindow" class="form-label fw-semibold small"></label>
+                    <select asp-for="PreferredDeliveryTimeWindow" class="form-select">
+                        <option value="05:00 - 08:00">05:00 - 08:00 (Poranna dostawa HoReCa)</option>
+                        <option value="08:00 - 12:00">08:00 - 12:00 (Przedpołudnie)</option>
+                        <option value="12:00 - 16:00">12:00 - 16:00 (Popołudnie)</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="DeliveryAddress" class="form-label fw-semibold small"></label>
+                    <input asp-for="DeliveryAddress" class="form-control" placeholder="np. ul. Restauracyjna 15, Warszawa" />
+                    <span asp-validation-for="DeliveryAddress" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex gap-2">
+                <button type="submit" class="btn text-white fw-semibold px-4" style="background-color:#00796B;">
+                    Potwierdź zamówienie i zarezerwuj towar
+                </button>
+                <a asp-controller="Products" asp-action="Catalog" class="btn btn-outline-secondary">Anuluj</a>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
