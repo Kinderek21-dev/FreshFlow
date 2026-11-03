@@ -39,6 +39,35 @@ namespace FreshFlow.Data
                 await userManager.AddToRolesAsync(admin, new[] { "Administrator", "Kierownik" });
             }
 
+            if (await userManager.FindByEmailAsync("magazynier@freshflow.pl") == null)
+            {
+                var warehouseUser = new ApplicationUser
+                {
+                    UserName = "magazynier@freshflow.pl",
+                    Email = "magazynier@freshflow.pl",
+                    FirstName = "Marek",
+                    LastName = "Magazynowy",
+                    CompanyName = "FreshFlow Magazyn",
+                    EmailConfirmed = true
+                };
+                await userManager.CreateAsync(warehouseUser, "Haslo123!");
+                await userManager.AddToRoleAsync(warehouseUser, "Magazynier");
+            }
+
+            if (await userManager.FindByEmailAsync("dostawca@freshflow.pl") == null)
+            {
+                var courierUser = new ApplicationUser
+                {
+                    UserName = "dostawca@freshflow.pl",
+                    Email = "dostawca@freshflow.pl",
+                    FirstName = "Damian",
+                    LastName = "Kurierski",
+                    CompanyName = "FreshFlow Transport Chłodniczy",
+                    EmailConfirmed = true
+                };
+                await userManager.CreateAsync(courierUser, "Haslo123!");
+                await userManager.AddToRoleAsync(courierUser, "Dostawca");
+            }
             if (await userManager.FindByEmailAsync("klient@restauracja.pl") == null)
             {
                 var client = new ApplicationUser

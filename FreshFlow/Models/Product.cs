@@ -52,5 +52,10 @@ namespace FreshFlow.Models
 
         [Display(Name = "Zarchiwizowany")]
         public bool IsArchived { get; set; } = false;
+
+        [Required(ErrorMessage = "Podaj datę przydatności")]
+        [DataType(DataType.Date)]
+        [Display(Name = "Data przydatności do spożycia")]
+        public DateTime ExpirationDate { get; set; } = DateTime.Today.AddDays(10);
     }
 }
