@@ -1,0 +1,105 @@
+﻿@model IEnumerable<FreshFlow.Models.Product>
+@{
+    ViewData["Title"] = "Portal Klienta B2B";
+    var client = ViewBag.CurrentUser as FreshFlow.Models.ApplicationUser;
+}
+
+<div class="bg-light py-5 min-vh-100">
+    <div class="container">
+        <div class="p-4 p-md-5 mb-4 rounded-4 text-white shadow-sm d-flex flex-column flex-md-row justify-content-between align-items-md-center"
+             style="background: linear-gradient(135deg, #101828 0%, #00796B 100%);">
+            <div>
+                <span class="badge text-uppercase mb-2" style="background-color:rgba(255,255,255,0.2); letter-spacing:1px;">
+                    🍃 FreshFlow — Portal Klienta B2B
+                </span>
+                <h2 class="fw-bold mb-1">Witaj, @(client?.FirstName ?? User.Identity?.Name)!</h2>
+                <p class="text-white-50 mb-0">
+                    Firma: <strong>@(client?.CompanyName ?? "Konto Klienta")</strong>
+                    @if (!string.IsNullOrEmpty(client?.NIP))
+                    {
+                        <span> · NIP: <strong>@client.NIP</strong></span>
+                    }
+                </p>
+            </div>
+            <div class="mt-3 mt-md-0 d-flex gap-2">
+                <a asp-controller="Products" asp-action="Catalog" class="btn btn-light fw-semibold px-4" style="color:#00796B;">
+                    Przeglądaj pełny katalog →
+                </a>
+                <a asp-controller="Orders" asp-action="MyOrders" class="btn btn-outline-light fw-semibold px-4">
+                    Moje Zamówienia
+                </a>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                    <small class="text-uppercase fw-bold" style="color:#00796B;">Status Konta B2B</small>
+                    <h5 class="fw-bold mt-2">Aktywne konto hurtowe</h5>
+                    <p class="text-muted small mb-0">Masz pełny dostęp do cen hurtowych netto oraz składania zamówień z wyborem terminu dostawy.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                    <small class="text-uppercase fw-bold" style="color:#00796B;">Dostawy</small>
+                    <h5 class="fw-bold mt-2">Realizacja w 24h</h5>
+                    <p class="text-muted small mb-0">Zamówienia złożone do godziny 17:00 dostarczamy transportem chłodniczym następnego dnia rano.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                    <small class="text-uppercase fw-bold" style="color:#00796B;">Szybkie wyszukiwanie</small>
+                    <form asp-controller="Products" asp-action="Catalog" method="get" class="mt-2">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" placeholder="Wpisz np. Pomidor, Jabłko..." />
+                            <button class="btn text-white fw-semibold" style="background-color:#00796B;" type="submit">Szukaj</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="fw-bold mb-0">Dostępne dzisiaj w hurtowni</h4>
+            <a asp-controller="Products" asp-action="Catalog" class="text-decoration-none fw-semibold small" style="color:#00796B;">
+                Zobacz wszystkie produkty (@Model.Count()) →
+            </a>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                        <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? "https://images.unsplash.com/photo-1542838132-92c53300491e?w=600" : item.ImageUrl)"
+                             class="card-img-top" style="height:190px; object-fit:cover;" alt="@item.Name" />
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge" style="background-color:#e6f4f1; color:#00796B;">@item.Category?.Name</span>
+                                <small class="text-muted">Stan: <strong>@item.StockQuantity kg</strong></small>
+                            </div>
+                            <h5 class="fw-bold mb-1">@item.Name</h5>
+                            <p class="text-muted small mb-3">Kraj: @item.OriginCountry · Min. zamówienie: @item.MinimumOrderQuantity kg</p>
+                            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                                <div>
+                                    <span class="fs-5 fw-bold" style="color:#00796B;">@item.BasePricePerKg.ToString("0.00") zł</span>
+                                    <small class="text-muted">/ kg netto</small>
+                                    </div>
+                            <div class="d-flex gap-1">
+                                    <a asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductId"
+                                       class="btn btn-sm text-white fw-semibold px-3" style="background-color:#00796B;">
+                                        Szczegóły oferty
+                                    </a>
+                                    <a asp-controller="Orders" asp-action="Create" asp-route-productId="@item.ProductId"
+                                       class="btn btn-sm btn-dark fw-semibold px-3">
+                                        Zamów
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

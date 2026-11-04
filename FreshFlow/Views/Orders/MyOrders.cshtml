@@ -1,0 +1,70 @@
+﻿@model IEnumerable<FreshFlow.Models.Order>
+@{
+    ViewData["Title"] = "Moje Zamówienia B2B";
+}
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-0">Moje Zamówienia i Statusy Dostaw</h3>
+            <p class="text-muted small mb-0">Śledź na żywo proces kompletacji w magazynie oraz status kuriera chłodniczego.</p>
+        </div>
+        <a asp-controller="Products" asp-action="Catalog" class="btn text-white fw-semibold" style="background-color:#00796B;">
+            + Złóż nowe zamówienie
+        </a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Nr</th>
+                    <th>Produkt</th>
+                    <th>Ilość</th>
+                    <th>Kwota netto</th>
+                    <th>Termin dostawy</th>
+                    <th>Adres</th>
+                    <th>Status realizacji</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var o in Model)
+                {
+                    <tr>
+                        <td class="fw-bold">#@o.OrderId</td>
+                        <td>@o.Product?.Name</td>
+                        <td>@o.QuantityKg kg</td>
+                        <td class="fw-semibold">@o.TotalPriceNet.ToString("0.00") zł</td>
+                        <td>@o.PreferredDeliveryDate.ToString("dd.MM.yyyy") <small class="text-muted">(@o.PreferredDeliveryTimeWindow)</small></td>
+                        <td class="small">@o.DeliveryAddress</td>
+                        <td>
+                            @switch (o.Status)
+                            {
+                                case FreshFlow.Models.OrderStatus.Nowe:
+                                    <span class="badge bg-secondary">Oczekuje w magazynie</span>
+                                    break;
+                                case FreshFlow.Models.OrderStatus.WKompletacji:
+                                    <span class="badge bg-warning text-dark">Magazynier kompletuje</span>
+                                    break;
+                                case FreshFlow.Models.OrderStatus.GotoweDlaDostawcy:
+                                    <span class="badge bg-info text-dark">Skompletowane – czeka na kuriera</span>
+                                    break;
+                                case FreshFlow.Models.OrderStatus.WDrodze:
+                                    <span class="badge bg-primary">W trasie (u Dostawcy)</span>
+                                    break;
+                                case FreshFlow.Models.OrderStatus.Dostarczone:
+                                    <span class="badge bg-success">Dostarczone</span>
+                                    break;
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

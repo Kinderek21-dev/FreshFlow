@@ -1,0 +1,62 @@
+﻿@model FreshFlow.Models.Product
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Edytuj Produkt";
+}
+<div class="col-lg-8 mx-auto bg-white p-4 rounded-4 shadow-sm border">
+    <h4 class="fw-bold mb-3">Edycja produktu: @Model.Name</h4>
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="ProductId" />
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="Name" class="form-label small fw-semibold"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="BarcodeSKU" class="form-label small fw-semibold"></label>
+                <input asp-for="BarcodeSKU" class="form-control" />
+                <span asp-validation-for="BarcodeSKU" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="CategoryId" class="form-label small fw-semibold"></label>
+                <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select"></select>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="OriginCountry" class="form-label small fw-semibold"></label>
+                <input asp-for="OriginCountry" class="form-control" />
+                <span asp-validation-for="OriginCountry" class="text-danger small"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="BasePricePerKg" class="form-label small fw-semibold"></label>
+                <input asp-for="BasePricePerKg" class="form-control" type="number" step="0.01" />
+                <span asp-validation-for="BasePricePerKg" class="text-danger small"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="MinimumOrderQuantity" class="form-label small fw-semibold"></label>
+                <input asp-for="MinimumOrderQuantity" class="form-control" type="number" />
+                <span asp-validation-for="MinimumOrderQuantity" class="text-danger small"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="VatRate" class="form-label small fw-semibold"></label>
+                <input asp-for="VatRate" class="form-control" type="number" />
+                <span asp-validation-for="VatRate" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="StockQuantity" class="form-label small fw-semibold"></label>
+                <input asp-for="StockQuantity" class="form-control" type="number" />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="ImageUrl" class="form-label small fw-semibold"></label>
+                <input asp-for="ImageUrl" class="form-control" placeholder="https://..." />
+            </div>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn text-white px-4 fw-semibold" style="background-color:#00796B;">Zapisz zmiany</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Anuluj</a>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

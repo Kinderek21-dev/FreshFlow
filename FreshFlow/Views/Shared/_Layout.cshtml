@@ -24,8 +24,10 @@
             <div class="d-flex gap-2">
                 @if (User.Identity != null && User.Identity.IsAuthenticated)
                 {
+                    <a asp-controller="ClientPanel" asp-action="Index" class="btn btn-outline-dark btn-sm px-3 py-2 fw-semibold">Panel Klienta</a>
                     <a asp-controller="Products" asp-action="Catalog" class="btn btn-outline-secondary btn-sm px-3 py-2 fw-semibold">Katalog</a>
-                    <form asp-controller="Account" asp-action="Logout" method="post">
+                    <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                
                         <button type="submit" class="btn btn-sm text-white px-3 py-2 fw-semibold" style="background-color:#00796B;">Wyloguj (@User.Identity.Name)</button>
                     </form>
                 }
@@ -34,6 +36,7 @@
                     <a asp-controller="Account" asp-action="Login" asp-route-mode="client" class="btn btn-outline-secondary btn-sm px-3 py-2 fw-semibold">Zaloguj jako Klient</a>
                     <a asp-controller="Account" asp-action="Login" asp-route-mode="employee" class="btn btn-sm text-white px-3 py-2 fw-semibold" style="background-color:#00796B;">Panel Pracownika</a>
                 }
+
             </div>
         </div>
     </nav>
