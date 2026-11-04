@@ -42,11 +42,18 @@
                 <input asp-for="VatRate" class="form-control" type="number" />
                 <span asp-validation-for="VatRate" class="text-danger small"></span>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label asp-for="StockQuantity" class="form-label small fw-semibold"></label>
                 <input asp-for="StockQuantity" class="form-control" type="number" />
+                <span asp-validation-for="StockQuantity" class="text-danger small"></span>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
+                <label asp-for="ExpirationDate" class="form-label small fw-semibold text-danger">Data przydatności partii</label>
+                <input asp-for="ExpirationDate" type="date" class="form-control"
+                       value="@(Model.ExpirationDate.Year < 2020 ? DateTime.Today.AddDays(14).ToString("yyyy-MM-dd") : Model.ExpirationDate.ToString("yyyy-MM-dd"))" />
+                <span asp-validation-for="ExpirationDate" class="text-danger small"></span>
+            </div>
+            <div class="col-md-4">
                 <label asp-for="ImageUrl" class="form-label small fw-semibold"></label>
                 <input asp-for="ImageUrl" class="form-control" placeholder="https://..." />
             </div>

@@ -40,14 +40,21 @@ namespace FreshFlow.Controllers
             if (product == null || product.StockQuantity <= 0)
             {
                 TempData["Error"] = "Wybrany produkt jest aktualnie niedostępny.";
-                return RedirectToAction("Catalog", "Products");
+                return RedirectToAction("Index", "ClientPanel");
+            }
+
+            if (product.ExpirationDate.Year < 2020)
+            {
+                product.ExpirationDate = DateTime.Today.AddDays(14);
+                _context.Products.Update(product);
+                await _context.SaveChangesAsync();
             }
 
             ViewBag.Product = product;
             var model = new Order
             {
                 ProductId = product.ProductId,
-                QuantityKg = product.MinimumOrderQuantity,
+                QuantityKg = (int)product.MinimumOrderQuantity,
                 PreferredDeliveryDate = DateTime.Today.AddDays(1)
             };
 
@@ -60,6 +67,11 @@ namespace FreshFlow.Controllers
         {
             var product = await _context.Products.FindAsync(order.ProductId);
             if (product == null) return NotFound();
+
+            if (product.ExpirationDate.Year < 2020)
+            {
+                product.ExpirationDate = DateTime.Today.AddDays(14);
+            }
 
             if (order.QuantityKg < product.MinimumOrderQuantity)
             {

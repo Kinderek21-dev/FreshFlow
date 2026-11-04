@@ -19,24 +19,39 @@
 
             <small class="text-uppercase text-white-50 px-2 mb-2" style="font-size:11px;">Menu Główne</small>
             <ul class="nav nav-pills flex-column mb-auto gap-1">
-                <li class="nav-item">
-                    <a asp-controller="Dashboard" asp-action="Index" class="nav-link text-white">⊞ Pulpit Główny</a>
-                </li>
-                <li>
-                    <a asp-controller="Products" asp-action="Index" class="nav-link text-white">📦 Katalog Produktów (CRUD)</a>
-                </li>
-                <li>
-                    <a asp-controller="Users" asp-action="Index" class="nav-link text-white">👥 Użytkownicy (CRUD Admina)</a>
-                </li>
-                <li>
-                    <a asp-controller="ClientPanel" asp-action="Index" class="nav-link text-white-50">🌿 Podgląd Panelu Klienta</a>
-                </li>
-                <li>
-                    <a asp-controller="Logistics" asp-action="WarehousePanel" class="nav-link text-white">📋 Panel Magazyniera</a>
-                </li>
-                <li>
-                    <a asp-controller="Logistics" asp-action="DeliveryPanel" class="nav-link text-white">🚚 Panel Dostawcy</a>
-                </li>
+                @if (User.IsInRole("Administrator") || User.IsInRole("Kierownik"))
+                {
+                    <li class="nav-item">
+                        <a asp-controller="Dashboard" asp-action="Index" class="nav-link text-white">⊞ Pulpit Główny</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Products" asp-action="Index" class="nav-link text-white">📦 Katalog Produktów (CRUD)</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Users" asp-action="Index" class="nav-link text-white">👥 Użytkownicy (CRUD Admina)</a>
+                    </li>
+                }
+
+                @if (User.IsInRole("Administrator") || User.IsInRole("Kierownik") || User.IsInRole("Magazynier"))
+                {
+                    <li>
+                        <a asp-controller="Logistics" asp-action="WarehousePanel" class="nav-link text-white">📋 Panel Magazyniera</a>
+                    </li>
+                }
+
+                @if (User.IsInRole("Administrator") || User.IsInRole("Kierownik") || User.IsInRole("Dostawca"))
+                {
+                    <li>
+                        <a asp-controller="Logistics" asp-action="DeliveryPanel" class="nav-link text-white">🚚 Panel Dostawcy</a>
+                    </li>
+                }
+
+                @if (User.IsInRole("Administrator") || User.IsInRole("Kierownik"))
+                {
+                    <li>
+                        <a asp-controller="ClientPanel" asp-action="Index" class="nav-link text-white-50">🌿 Podgląd Panelu Klienta</a>
+                    </li>
+                }
             </ul>
 
             <form asp-controller="Account" asp-action="Logout" method="post" class="mt-auto">
@@ -46,12 +61,17 @@
 
         <div class="flex-grow-1 d-flex flex-column">
             <header class="bg-white border-bottom px-4 py-3 d-flex justify-content-between align-items-center">
-                <input type="search" class="form-control w-25 bg-light" placeholder="Szukaj w systemie..." />
+                <div class="fw-semibold text-muted small">System Zarządzania Hurtownią FreshFlow</div>
                 <div class="d-flex align-items-center gap-2">
                     <span class="badge rounded-pill p-2" style="background-color:#e6f4f1; color:#00796B;">ERP</span>
                     <div class="small">
                         <div class="fw-bold">@User.Identity?.Name</div>
-                        <div class="text-muted" style="font-size:11px;">Panel Pracownika / Admina</div>
+                        <div class="text-muted" style="font-size:11px;">
+                            @if (User.IsInRole("Administrator")) { <span>Administrator</span> }
+                            else if (User.IsInRole("Magazynier")) { <span>Magazynier</span> }
+                            else if (User.IsInRole("Dostawca")) { <span>Dostawca</span> }
+                            else { <span>Kierownik</span> }
+                        </div>
                     </div>
                 </div>
             </header>

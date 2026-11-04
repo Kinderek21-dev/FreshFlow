@@ -22,11 +22,8 @@
                 </p>
             </div>
             <div class="mt-3 mt-md-0 d-flex gap-2">
-                <a asp-controller="Products" asp-action="Catalog" class="btn btn-light fw-semibold px-4" style="color:#00796B;">
-                    Przeglądaj pełny katalog →
-                </a>
-                <a asp-controller="Orders" asp-action="MyOrders" class="btn btn-outline-light fw-semibold px-4">
-                    Moje Zamówienia
+                <a asp-controller="Orders" asp-action="MyOrders" class="btn btn-light fw-semibold px-4" style="color:#00796B;">
+                    📦 Moje Zamówienia i Dostawy →
                 </a>
             </div>
         </div>
@@ -49,9 +46,9 @@
             <div class="col-md-4">
                 <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
                     <small class="text-uppercase fw-bold" style="color:#00796B;">Szybkie wyszukiwanie</small>
-                    <form asp-controller="Products" asp-action="Catalog" method="get" class="mt-2">
+                    <form asp-controller="ClientPanel" asp-action="Index" method="get" class="mt-2">
                         <div class="input-group">
-                            <input type="text" name="search" class="form-control" placeholder="Wpisz np. Pomidor, Jabłko..." />
+                            <input type="text" name="search" value="@ViewBag.CurrentSearch" class="form-control" placeholder="Wpisz np. Pomidor, Jabłko..." />
                             <button class="btn text-white fw-semibold" style="background-color:#00796B;" type="submit">Szukaj</button>
                         </div>
                     </form>
@@ -60,10 +57,11 @@
         </div>
 
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="fw-bold mb-0">Dostępne dzisiaj w hurtowni</h4>
-            <a asp-controller="Products" asp-action="Catalog" class="text-decoration-none fw-semibold small" style="color:#00796B;">
-                Zobacz wszystkie produkty (@Model.Count()) →
-            </a>
+            <h4 class="fw-bold mb-0">Oferta Hurtowni — Dostępne dzisiaj (@Model.Count())</h4>
+            @if (!string.IsNullOrEmpty(ViewBag.CurrentSearch as string))
+            {
+                <a asp-controller="ClientPanel" asp-action="Index" class="btn btn-sm btn-outline-secondary">Wyczyść filtr</a>
+            }
         </div>
 
         <div class="row g-4">
@@ -76,25 +74,20 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <span class="badge" style="background-color:#e6f4f1; color:#00796B;">@item.Category?.Name</span>
-                                <small class="text-muted">Stan: <strong>@item.StockQuantity kg</strong></small>
+                                <small class="text-muted">Zasób: <strong>@item.StockQuantity kg</strong></small>
                             </div>
                             <h5 class="fw-bold mb-1">@item.Name</h5>
-                            <p class="text-muted small mb-3">Kraj: @item.OriginCountry · Min. zamówienie: @item.MinimumOrderQuantity kg</p>
+                            <p class="text-muted small mb-1">Kraj: @item.OriginCountry · Min. zamówienie: @item.MinimumOrderQuantity kg</p>
+                            <p class="small text-danger mb-3">Ważność partii do: <strong>@item.ExpirationDate.ToString("dd.MM.yyyy")</strong></p>
                             <div class="d-flex justify-content-between align-items-center pt-2 border-top">
                                 <div>
                                     <span class="fs-5 fw-bold" style="color:#00796B;">@item.BasePricePerKg.ToString("0.00") zł</span>
                                     <small class="text-muted">/ kg netto</small>
-                                    </div>
-                            <div class="d-flex gap-1">
-                                    <a asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductId"
-                                       class="btn btn-sm text-white fw-semibold px-3" style="background-color:#00796B;">
-                                        Szczegóły oferty
-                                    </a>
-                                    <a asp-controller="Orders" asp-action="Create" asp-route-productId="@item.ProductId"
-                                       class="btn btn-sm btn-dark fw-semibold px-3">
-                                        Zamów
-                                    </a>
                                 </div>
+                                <a asp-controller="Orders" asp-action="Create" asp-route-productId="@item.ProductId"
+                                   class="btn btn-sm text-white fw-semibold px-3" style="background-color:#00796B;">
+                                    🛒 Zamów dostawę
+                                </a>
                             </div>
                         </div>
                     </div>
