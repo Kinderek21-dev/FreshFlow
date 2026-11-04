@@ -1,0 +1,72 @@
+﻿@model IEnumerable<FreshFlow.Models.Order>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Panel Dostawcy — Transport";
+}
+
+<div class="mb-4">
+    <h3 class="fw-bold mb-0">🚚 Panel Dostawcy — Realizacja Dostaw Chłodniczych</h3>
+    <p class="text-muted small mb-0">Lista zamówień skompletowanych przez magazyn i gotowych do odbioru oraz doręczenia klientom.</p>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success py-2 small">@TempData["Success"]</div>
+}
+
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+            <tr>
+                <th>Nr</th>
+                <th>Odbiorca (Firma)</th>
+                <th>Adres dostawy</th>
+                <th>Termin i okno czasowe</th>
+                <th>Ładunek</th>
+                <th>Status</th>
+                <th class="text-end">Akcja Dostawcy</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var o in Model)
+            {
+                <tr>
+                    <td class="fw-bold">#@o.OrderId</td>
+                    <td>@(o.Client?.CompanyName ?? o.Client?.Email)</td>
+                    <td class="fw-semibold">@o.DeliveryAddress</td>
+                    <td>@o.PreferredDeliveryDate.ToString("dd.MM.yyyy") <span class="badge bg-light text-dark border">@o.PreferredDeliveryTimeWindow</span></td>
+                    <td>@o.Product?.Name (@o.QuantityKg kg)</td>
+                    <td>
+                        <span class="badge bg-info text-dark">@o.Status</span>
+                    </td>
+                    <td class="text-end">
+                        @if (o.Status == FreshFlow.Models.OrderStatus.GotoweDlaDostawcy)
+                        {
+                            <form asp-action="UpdateDeliveryStatus" method="post" class="d-inline">
+                                <input type="hidden" name="orderId" value="@o.OrderId" />
+                                <input type="hidden" name="newStatus" value="@FreshFlow.Models.OrderStatus.WDrodze" />
+                                <button type="submit" class="btn btn-sm btn-primary fw-semibold">
+                                    🚚 Odbierz z magazynu (W trasie)
+                                </button>
+                            </form>
+                        }
+                        else if (o.Status == FreshFlow.Models.OrderStatus.WDrodze)
+                        {
+                            <form asp-action="UpdateDeliveryStatus" method="post" class="d-inline">
+                                <input type="hidden" name="orderId" value="@o.OrderId" />
+                                <input type="hidden" name="newStatus" value="@FreshFlow.Models.OrderStatus.Dostarczone" />
+                                <button type="submit" class="btn btn-sm btn-success fw-semibold">
+                                    ✓ Potwierdź dostarczenie klientowi
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">Zrealizowano</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

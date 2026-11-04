@@ -42,10 +42,22 @@ namespace FreshFlow.Controllers
             if (result.Succeeded && user != null)
             {
                 var roles = await _userManager.GetRolesAsync(user);
-                if (roles.Contains("Administrator") || roles.Contains("Kierownik") || roles.Contains("Magazynier"))
+
+                if (roles.Contains("Magazynier"))
+                {
+                    return RedirectToAction("WarehousePanel", "Logistics");
+                }
+
+                if (roles.Contains("Dostawca"))
+                {
+                    return RedirectToAction("DeliveryPanel", "Logistics");
+                }
+
+                if (roles.Contains("Administrator") || roles.Contains("Kierownik"))
                 {
                     return RedirectToAction("Index", "Dashboard");
                 }
+
                 return RedirectToAction("Index", "ClientPanel");
             }
 
@@ -79,7 +91,7 @@ namespace FreshFlow.Controllers
             {
                 await _userManager.AddToRoleAsync(user, "Klient");
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                return RedirectToAction("Catalog", "Products");
+                return RedirectToAction("Index", "ClientPanel");
             }
 
             foreach (var error in result.Errors)

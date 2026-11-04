@@ -31,6 +31,12 @@
                 <li>
                     <a asp-controller="ClientPanel" asp-action="Index" class="nav-link text-white-50">🌿 Podgląd Panelu Klienta</a>
                 </li>
+                <li>
+                    <a asp-controller="Logistics" asp-action="WarehousePanel" class="nav-link text-white">📋 Panel Magazyniera</a>
+                </li>
+                <li>
+                    <a asp-controller="Logistics" asp-action="DeliveryPanel" class="nav-link text-white">🚚 Panel Dostawcy</a>
+                </li>
             </ul>
 
             <form asp-controller="Account" asp-action="Logout" method="post" class="mt-auto">
