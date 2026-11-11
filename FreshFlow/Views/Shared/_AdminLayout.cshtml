@@ -55,6 +55,19 @@
                         <a asp-controller="Reports" asp-action="Index" class="nav-link text-white">📊 Raporty Sprzedaży</a>
                     </li>
                 }
+                @if (User.IsInRole("Administrator") || User.IsInRole("Kierownik"))
+                {
+                    <li>
+                        <a asp-controller="Reports" asp-action="Index" class="nav-link text-white">📊 Raporty Sprzedaży</a>
+                    </li>
+                }
+
+                @if (User.IsInRole("Administrator") || User.IsInRole("Kierownik") || User.IsInRole("Magazynier"))
+                {
+                    <li>
+                        <a asp-controller="Suppliers" asp-action="Index" class="nav-link text-white">🚜 Rolnicy / Dostawcy (CRUD)</a>
+                    </li>
+                }
             </ul>
 
             <form asp-controller="Account" asp-action="Logout" method="post" class="mt-auto">

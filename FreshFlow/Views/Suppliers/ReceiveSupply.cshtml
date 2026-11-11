@@ -1,0 +1,47 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Przyjęcie Dostawy od Rolnika";
+    var supplier = ViewBag.Supplier as FreshFlow.Models.Supplier;
+}
+
+<div class="col-lg-7 mx-auto bg-white p-4 p-md-5 rounded-4 shadow-sm border">
+    <span class="badge mb-2" style="background-color:#e6f4f1; color:#00796B;">DOSTAWA DO MAGAZYNU (PZ)</span>
+    <h4 class="fw-bold mb-1">Przyjęcie nowej partii towaru od rolnika</h4>
+    <p class="text-muted small mb-4">
+        Dostawca: <strong>@supplier?.FarmName</strong> (NIP: @supplier?.NIP, @supplier?.Region)
+    </p>
+
+    <div asp-validation-summary="All" class="text-danger small mb-3"></div>
+
+    <form asp-action="ReceiveSupply" method="post">
+        <input type="hidden" name="supplierId" value="@supplier?.SupplierId" />
+
+        <div class="mb-3">
+            <label class="form-label small fw-semibold">Wybierz dostarczony produkt (warzywo / owoc)</label>
+            <select name="productId" asp-items="ViewBag.Products" class="form-select" required></select>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label small fw-semibold">Dostarczona ilość (kg)</label>
+                <input type="number" name="deliveredKg" class="form-control" value="100" min="1" max="50000" required />
+                <small class="text-muted">Zostanie dodana do obecnego stanu magazynowego.</small>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label small fw-semibold text-danger">Data przydatności nowej partii</label>
+                <input type="date" name="newExpirationDate" class="form-control"
+                       value="@DateTime.Today.AddDays(14).ToString("yyyy-MM-dd")"
+                       min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" required />
+                <small class="text-muted">Zaktualizuje datę ważności produktu w katalogu.</small>
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-success fw-semibold px-4">
+                ✓ Zatwierdź przyjęcie i powiększ stan magazynowy
+            </button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Anuluj</a>
+        </div>
+    </form>
+</div>
