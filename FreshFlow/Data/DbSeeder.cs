@@ -119,6 +119,32 @@ namespace FreshFlow.Data
                 );
                 await context.SaveChangesAsync();
             }
+            if (!context.Suppliers.Any())
+            {
+                context.Suppliers.AddRange(
+                    new Supplier
+                    {
+                        FarmName = "Gospodarstwo Sadownicze Dolina Grójca",
+                        NIP = "7971234567",
+                        ContactPerson = "Janusz Sadownik",
+                        PhoneNumber = "+48 601 234 567",
+                        Email = "kontakt@dolinagrojca.pl",
+                        Region = "Grójec (woj. mazowieckie)",
+                        Specialization = "Jabłka, Gruszki, Owoce sadownicze"
+                    },
+                    new Supplier
+                    {
+                        FarmName = "Eko-Warzywa Sp. z o.o.",
+                        NIP = "5259876543",
+                        ContactPerson = "Anna Zielińska",
+                        PhoneNumber = "+48 502 345 678",
+                        Email = "biuro@ekowarzywa.pl",
+                        Region = "Ożarów Mazowiecki",
+                        Specialization = "Pomidory malinowe, Ogórki, Warzywa korzeniowe"
+                    }
+                );
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

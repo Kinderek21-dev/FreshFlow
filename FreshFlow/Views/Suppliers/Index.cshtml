@@ -1,0 +1,86 @@
+﻿@model IEnumerable<FreshFlow.Models.Supplier>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Baza Rolników i Kontrahentów (CRUD)";
+}
+
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+    <div>
+        <h3 class="fw-bold mb-0">🚜 Baza Rolników i Kontrahentów (Dostawcy Hurtowni)</h3>
+        <p class="text-muted small mb-0">Zarządzaj gospodarstwami rolnymi dostarczającymi świeże warzywa i owoce oraz przyjmuj nowe partie na magazyn.</p>
+    </div>
+    @if (User.IsInRole("Administrator") || User.IsInRole("Kierownik"))
+    {
+        <a asp-action="Create" class="btn text-white fw-semibold px-4 mt-3 mt-md-0" style="background-color:#00796B;">
+            + Dodaj nowego rolnika / dostawcę
+        </a>
+    }
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success py-2 small">@TempData["Success"]</div>
+}
+
+<div class="card border-0 shadow-sm rounded-4 p-3 mb-4">
+    <form asp-action="Index" method="get" class="row g-2">
+        <div class="col-md-9">
+            <input type="text" name="search" value="@ViewBag.CurrentSearch" class="form-control form-control-sm"
+                   placeholder="Szukaj po nazwie gospodarstwa, NIP, regionie lub specjalizacji..." />
+        </div>
+        <div class="col-md-3 d-flex gap-2">
+            <button type="submit" class="btn btn-dark btn-sm w-100 fw-semibold">Filtruj</button>
+            <a asp-action="Index" class="btn btn-outline-secondary btn-sm">Reset</a>
+        </div>
+    </form>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+            <tr>
+                <th>Gospodarstwo / Kontrahent</th>
+                <th>NIP</th>
+                <th>Osoba kontaktowa</th>
+                <th>Kontakt</th>
+                <th>Region</th>
+                <th>Specjalizacja upraw</th>
+                <th class="text-end">Akcje i Dostawy</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="fw-bold">@item.FarmName</td>
+                    <td><span class="badge bg-light text-dark border">@item.NIP</span></td>
+                    <td>@item.ContactPerson</td>
+                    <td class="small">
+                        <div>📞 @item.PhoneNumber</div>
+                        <div class="text-muted">✉️ @item.Email</div>
+                    </td>
+                    <td>@item.Region</td>
+                    <td><span class="badge" style="background-color:#e6f4f1; color:#00796B;">@item.Specialization</span></td>
+                    <td class="text-end">
+                        <div class="d-flex justify-content-end gap-1">
+                            <a asp-action="ReceiveSupply" asp-route-id="@item.SupplierId"
+                               class="btn btn-sm btn-success fw-semibold">
+                                📦 + Przyjmij towar
+                            </a>
+                            @if (User.IsInRole("Administrator") || User.IsInRole("Kierownik"))
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.SupplierId" class="btn btn-sm btn-outline-primary">
+                                    Edytuj
+                                </a>
+                                <form asp-action="Delete" asp-route-id="@item.SupplierId" method="post" class="d-inline"
+                                      onsubmit="return confirm('Czy na pewno usunąć tego kontrahenta?');">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Usuń</button>
+                                </form>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
