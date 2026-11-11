@@ -15,7 +15,6 @@
     <nav class="navbar navbar-expand-lg bg-white border-bottom py-3 sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-dark" asp-controller="Home" asp-action="Index">
-                <span class="p-2 rounded-3 text-white" style="background-color:#00796B;">🍃</span>
                 FreshFlow
             </a>
 
@@ -27,9 +26,6 @@
 
                 <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
                     <ul class="navbar-nav gap-4 small fw-semibold my-2 my-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index" asp-fragment="o-nas">O nas</a>
-                        </li>
                         <li class="nav-item">
                             @if (User.Identity != null && User.Identity.IsAuthenticated)
                             {
@@ -53,19 +49,19 @@
                     @if (User.IsInRole("Administrator") || User.IsInRole("Kierownik"))
                     {
                         <a asp-controller="Dashboard" asp-action="Index" class="btn btn-dark btn-sm px-3 py-2 fw-semibold">
-                            ⚙️ Panel ERP
+                            Panel ERP
                         </a>
                     }
                     else if (User.IsInRole("Magazynier"))
                     {
                         <a asp-controller="Logistics" asp-action="WarehousePanel" class="btn btn-dark btn-sm px-3 py-2 fw-semibold">
-                            📦 Panel Magazyniera
+                            Panel Magazyniera
                         </a>
                     }
                     else if (User.IsInRole("Dostawca"))
                     {
                         <a asp-controller="Logistics" asp-action="DeliveryPanel" class="btn btn-dark btn-sm px-3 py-2 fw-semibold">
-                            🚚 Panel Dostawcy
+                            Panel Dostawcy
                         </a>
                     }
 
@@ -103,9 +99,8 @@
             <div class="row g-4 pb-4 border-bottom border-secondary">
                 <div class="col-md-4">
                     <div class="d-flex align-items-center gap-2 fw-bold fs-5 mb-2">
-                        <span class="p-2 rounded-3" style="background-color:#00796B;">🍃</span> FreshFlow
+                        FreshFlow
                     </div>
-                    <p class="small text-white-50">Twój zaufany partner w dostawach świeżych warzyw i owoców dla gastronomii i handlu.</p>
                 </div>
                 <div class="col-md-3 small">
                     <h6 class="text-uppercase fw-bold mb-3">Kontakt</h6>

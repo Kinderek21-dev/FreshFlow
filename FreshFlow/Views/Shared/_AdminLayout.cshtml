@@ -22,56 +22,56 @@
                 @if (User.IsInRole("Administrator") || User.IsInRole("Kierownik"))
                 {
                     <li class="nav-item">
-                        <a asp-controller="Dashboard" asp-action="Index" class="nav-link text-white">⊞ Pulpit Główny</a>
+                        <a asp-controller="Dashboard" asp-action="Index" class="nav-link text-white">Pulpit Główny</a>
                     </li>
                     <li>
-                        <a asp-controller="Products" asp-action="Index" class="nav-link text-white">📦 Katalog Produktów (CRUD)</a>
+                        <a asp-controller="Products" asp-action="Index" class="nav-link text-white">Katalog Produktów</a>
                     </li>
                     <li>
-                        <a asp-controller="Users" asp-action="Index" class="nav-link text-white">👥 Użytkownicy (CRUD Admina)</a>
+                        <a asp-controller="Users" asp-action="Index" class="nav-link text-white">Użytkownicy</a>
                     </li>
                 }
 
                 @if (User.IsInRole("Administrator") || User.IsInRole("Kierownik") || User.IsInRole("Magazynier"))
                 {
                     <li>
-                        <a asp-controller="Logistics" asp-action="WarehousePanel" class="nav-link text-white">📋 Panel Magazyniera</a>
+                        <a asp-controller="Logistics" asp-action="WarehousePanel" class="nav-link text-white">Panel Magazyniera</a>
                     </li>
                 }
 
                 @if (User.IsInRole("Administrator") || User.IsInRole("Kierownik") || User.IsInRole("Dostawca"))
                 {
                     <li>
-                        <a asp-controller="Logistics" asp-action="DeliveryPanel" class="nav-link text-white">🚚 Panel Dostawcy</a>
+                        <a asp-controller="Logistics" asp-action="DeliveryPanel" class="nav-link text-white">Panel Dostawcy</a>
                     </li>
                 }
 
                 @if (User.IsInRole("Administrator") || User.IsInRole("Kierownik"))
                 {
                     <li>
-                        <a asp-controller="ClientPanel" asp-action="Index" class="nav-link text-white-50">🌿 Podgląd Panelu Klienta</a>
+                        <a asp-controller="ClientPanel" asp-action="Index" class="nav-link text-white-50">Podgląd Panelu Klienta</a>
                     </li>
                     <li>
-                        <a asp-controller="Reports" asp-action="Index" class="nav-link text-white">📊 Raporty Sprzedaży</a>
+                        <a asp-controller="Reports" asp-action="Index" class="nav-link text-white">Raporty Sprzedaży</a>
                     </li>
                 }
                 @if (User.IsInRole("Administrator") || User.IsInRole("Kierownik"))
                 {
                     <li>
-                        <a asp-controller="Reports" asp-action="Index" class="nav-link text-white">📊 Raporty Sprzedaży</a>
+                        <a asp-controller="Reports" asp-action="Index" class="nav-link text-white">Raporty Sprzedaży</a>
                     </li>
                 }
 
                 @if (User.IsInRole("Administrator") || User.IsInRole("Kierownik") || User.IsInRole("Magazynier"))
                 {
                     <li>
-                        <a asp-controller="Suppliers" asp-action="Index" class="nav-link text-white">🚜 Rolnicy / Dostawcy (CRUD)</a>
+                        <a asp-controller="Suppliers" asp-action="Index" class="nav-link text-white">Rolnicy / Dostawcy</a>
                     </li>
                 }
             </ul>
 
             <form asp-controller="Account" asp-action="Logout" method="post" class="mt-auto">
-                <button type="submit" class="btn btn-outline-light btn-sm w-100">⇥ Wyloguj</button>
+                <button type="submit" class="btn btn-outline-light btn-sm w-100">Wyloguj</button>
             </form>
         </aside>
 

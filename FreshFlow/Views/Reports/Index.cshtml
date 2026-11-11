@@ -6,7 +6,7 @@
 
 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
     <div>
-        <h3 class="fw-bold mb-0">📊 Raporty o Sprzedaży i Zrealizowanych Dostawach</h3>
+        <h3 class="fw-bold mb-0">Raporty o Sprzedaży i Zrealizowanych Dostawach</h3>
         <p class="text-muted small mb-0">Zestawienie przychodów B2B, wolumenu sprzedanych towarów oraz wykonanych kursów chłodniczych.</p>
     </div>
     <div class="d-flex gap-2 mt-3 mt-md-0">
@@ -15,10 +15,10 @@
            asp-route-toDate="@ViewBag.ToDate"
            asp-route-onlyDelivered="@ViewBag.OnlyDelivered"
            class="btn text-white fw-semibold btn-sm px-3 py-2" style="background-color:#00796B;">
-            📥 Pobierz raport CSV (Excel)
+            Pobierz raport CSV (Excel)
         </a>
         <button onclick="window.print()" class="btn btn-outline-dark fw-semibold btn-sm px-3 py-2">
-            🖨️ Drukuj / Zapisz PDF
+            Drukuj / Zapisz PDF
         </button>
     </div>
 </div>
@@ -112,7 +112,7 @@
                     <td>
                         @if (o.Status == FreshFlow.Models.OrderStatus.Dostarczone)
                         {
-                            <span class="badge bg-success">✓ Dostarczone</span>
+                            <span class="badge bg-success">Dostarczone</span>
                         }
                         else
                         {

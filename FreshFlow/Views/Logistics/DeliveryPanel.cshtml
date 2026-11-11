@@ -5,7 +5,7 @@
 }
 
 <div class="mb-4">
-    <h3 class="fw-bold mb-0">🚚 Panel Dostawcy — Realizacja Dostaw Chłodniczych</h3>
+    <h3 class="fw-bold mb-0">Panel Dostawcy — Realizacja Dostaw Chłodniczych</h3>
     <p class="text-muted small mb-0">Lista zamówień skompletowanych przez magazyn i gotowych do odbioru oraz doręczenia klientom.</p>
 </div>
 
@@ -46,7 +46,7 @@
                                 <input type="hidden" name="orderId" value="@o.OrderId" />
                                 <input type="hidden" name="newStatus" value="@FreshFlow.Models.OrderStatus.WDrodze" />
                                 <button type="submit" class="btn btn-sm btn-primary fw-semibold">
-                                    🚚 Odbierz z magazynu (W trasie)
+                                    Odbierz z magazynu (W trasie)
                                 </button>
                             </form>
                         }
@@ -56,7 +56,7 @@
                                 <input type="hidden" name="orderId" value="@o.OrderId" />
                                 <input type="hidden" name="newStatus" value="@FreshFlow.Models.OrderStatus.Dostarczone" />
                                 <button type="submit" class="btn btn-sm btn-success fw-semibold">
-                                    ✓ Potwierdź dostarczenie klientowi
+                                    Potwierdź dostarczenie klientowi
                                 </button>
                             </form>
                         }
